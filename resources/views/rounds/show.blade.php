@@ -13,10 +13,7 @@
                         <div class="pull-right" style="margin-top: 20px;">
                             @if (Auth::id() == $round->user->id)
                                 <a href="{{ route('rounds.edit', $round->id) }}" class="btn btn-default">Edit Round</a>
-
-                                {!! Form::open(['method' => 'DELETE', 'route' => ['rounds.destroy', $round->id], 'style' => 'display:inline-block;']) !!}
-                                {!! Form::submit('Delete Round', ['class' => 'btn btn-default']) !!}
-                                {!! Form::close() !!}
+                                <a href="{{ route('rounds.delete', $round->id) }}" class="btn btn-default">Delete Round</a>
                             @endif
                         </div>
                     </div>

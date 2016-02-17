@@ -32,4 +32,5 @@ Route::get('users/{users}/followers', ['uses' => 'UserController@followers', 'as
 Route::get('users/{users}/rounds', ['uses' => 'UserController@rounds', 'as' => 'users.rounds']);
 Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 
+Route::get('rounds/{rounds}/delete', ['uses' => 'RoundController@delete', 'as' => 'rounds.delete']);
 Route::resource('rounds', 'RoundController');

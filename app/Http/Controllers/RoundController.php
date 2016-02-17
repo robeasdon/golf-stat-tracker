@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\DeleteRoundRequest;
 use App\Http\Requests\RoundRequest;
 use App\Http\Requests\UpdateRoundRequest;
 use App\Repositories\Contracts\CourseRepositoryInterface;
@@ -144,6 +145,20 @@ class RoundController extends Controller
         $request->session()->flash('success', 'Your round has been updated.');
 
         return redirect(route('rounds.show', $round->id));
+    }
+
+    /**
+     * Confirm the deletion of a round.
+     *
+     * @param $roundId
+     * @param DeleteRoundRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function delete($roundId, DeleteRoundRequest $request)
+    {
+        $round = $request->user()->rounds()->where('id', $roundId)->first();
+
+        return view('rounds.delete', compact('round'));
     }
 
     /**
