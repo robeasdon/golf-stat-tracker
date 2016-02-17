@@ -56,7 +56,7 @@
 
             <div class="col-md-6">
 
-                @include('partials.stats', [$stats])
+                @include('partials.stats', [$stats, $user])
 
             </div>
         </div>

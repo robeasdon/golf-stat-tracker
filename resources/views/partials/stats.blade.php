@@ -1,4 +1,12 @@
-<h3>Stats</h3>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="pull-left">Stats</h3>
+
+        @if (Auth::check() && Auth::id() !== $user->id)
+            <a href="{{ route('compare', ['user' => Auth::id(), 'to' => $user->id]) }}" class="pull-right" style="margin-top:26px;">Compare stats</a>
+        @endif
+    </div>
+</div>
 
 @if ($stats->rounds_played > 0)
 
