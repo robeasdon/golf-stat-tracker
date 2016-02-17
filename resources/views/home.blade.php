@@ -58,7 +58,7 @@
                     @foreach($feed as $round)
                         <tr>
                             <td>
-                                <a href="{{ route('rounds.show', $round->id) }}">
+                                <a href="{{ route('users.show', $round->user->id) }}">
                                     {{ $round->user->name }}
                                 </a>
 
