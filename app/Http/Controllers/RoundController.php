@@ -155,7 +155,7 @@ class RoundController extends Controller
      */
     public function destroy($roundId, Request $request)
     {
-        $request->user()->rounds()->where('id', $roundId)->destroy();
+        $request->user()->rounds()->where('id', $roundId)->delete();
 
         $request->session()->flash('success', 'Your round has been deleted.');
 
