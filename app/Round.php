@@ -127,8 +127,14 @@ class Round extends Model
 
     public function averageStrokesPar($par)
     {
-        return $this->totalStrokesPar($par) / $this->scores->filter(function ($score) use ($par) {
-            return $score->hole->par === $par;
-        })->count();
+        $totalStrokes = $this->totalStrokesPar($par);
+
+        if ($totalStrokes > 0) {
+            return $totalStrokes / $this->scores->filter(function ($score) use ($par) {
+                return $score->hole->par === $par;
+            })->count();
+        }
+
+        return 0;
     }
 }
