@@ -47,41 +47,41 @@
 
                 <h3>Your Stats</h3>
 
-                @if ($stats && $stats->timesPlayed > 0)
+                @if ($stats && $stats->times_played > 0)
 
                     <table class="table">
                         <tbody>
                         <tr>
                             <td>Total Eagles</td>
-                            <td>{{ $stats->totalEagles }}</td>
+                            <td>{{ $stats->total_eagles }}</td>
                         </tr>
                         <tr>
                             <td>Total Birdies</td>
-                            <td>{{ $stats->totalBirdies }}</td>
+                            <td>{{ $stats->total_birdies }}</td>
                         </tr>
                         <tr>
                             <td>Total Pars</td>
-                            <td>{{ $stats->totalPars }}</td>
+                            <td>{{ $stats->total_pars }}</td>
                         </tr>
                         <tr>
                             <td>Total Bogies</td>
-                            <td>{{ $stats->totalBogies }}</td>
+                            <td>{{ $stats->total_bogies }}</td>
                         </tr>
                         <tr>
                             <td>Total Double Bogies</td>
-                            <td>{{ $stats->totalDoubleBogies }}</td>
+                            <td>{{ $stats->total_double_bogies }}</td>
                         </tr>
                         <tr>
                             <td>Average Score</td>
-                            <td>{{ round($stats->averageStrokes, 2) }}</td>
+                            <td>{{ round($stats->avg_strokes, 2) }}</td>
                         </tr>
                         <tr>
                             <td>Average Putts</td>
-                            <td>{{ round($stats->averagePutts, 2) }}</td>
+                            <td>{{ round($stats->avg_putts, 2) }}</td>
                         </tr>
                         <tr>
                             <td>Best Score</td>
-                            <td>{{ $stats->bestScore }}</td>
+                            <td>{{ $stats->best_score }}</td>
                         </tr>
                         </tbody>
                     </table>
