@@ -87,7 +87,6 @@ class RoundRepository implements RoundRepositoryInterface
 
         $rounds = Round::join('users', 'users.id', '=', 'rounds.user_id')
             ->join('scores', 'scores.round_id', '=', 'rounds.id')
-            ->join('holes', 'holes.id', '=', 'scores.hole_id')
             ->join('tee_sets', 'tee_sets.id', '=', 'rounds.tee_set_id')
             ->join('tee_types', 'tee_types.id', '=', 'tee_sets.tee_type_id')
             ->join('courses', 'courses.id', '=', 'tee_sets.course_id')
@@ -98,7 +97,6 @@ class RoundRepository implements RoundRepositoryInterface
                 'users.name as user_name',
                 DB::raw('sum(scores.strokes) as strokes'),
                 DB::raw('sum(scores.putts) as putts'),
-                'holes.par',
                 'tee_types.name as tee_type_name',
                 'courses.slug as course_slug',
                 'courses.name as course_name'
