@@ -44,7 +44,7 @@ class HomeController extends Controller
 
         $rounds = $this->round->getRoundsByUser($user->id);
         $latestRounds = $rounds->take(-5)->reverse();
-        $trends = $this->user->getUserTrends($user->id);
+        $trends = $this->user->getUserTrends($rounds);
         $feed = $this->user->getUserLatestFeed($user->id, 5);
 
         $chartData = [];

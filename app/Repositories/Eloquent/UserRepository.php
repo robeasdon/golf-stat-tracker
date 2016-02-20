@@ -6,6 +6,7 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Round;
 use App\User;
 use DB;
+use Illuminate\Support\Collection;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -66,51 +67,19 @@ class UserRepository implements UserRepositoryInterface
             )->first();
     }
 
-    public function getUserTrends($userId)
+    public function getUserTrends(Collection $rounds)
     {
-        $userTotalsSubQuery = DB::table('rounds')
-            ->join('scores', 'scores.round_id', '=', 'rounds.id')
-            ->join('holes', 'holes.id', '=', 'scores.hole_id')
-            ->where('rounds.user_id', $userId)
-            ->select(
-                'rounds.id',
-                'rounds.date',
-                DB::raw('sum(scores.strokes) as total_strokes'),
-                DB::raw('sum(scores.putts) as total_putts'),
-                DB::raw('sum(case when holes.par = 3 then scores.strokes end) as total_par3'),
-                DB::raw('sum(case when holes.par = 4 then scores.strokes end) as total_par4'),
-                DB::raw('sum(case when holes.par = 5 then scores.strokes end) as total_par5')
-            )
-            ->groupBy('rounds.id')
-            ->orderBy('rounds.date', 'desc');
+        $first = $rounds->first();
+        $last = $rounds->last();
+        $totalRounds = $rounds->count();
 
-        $userTotalsSubQuerySql = $userTotalsSubQuery->toSql();
+        $strokes = ($last->totalStrokes() - $first->totalStrokes()) / $totalRounds;
+        $putts = ($last->totalPutts() - $first->totalPutts()) / $totalRounds;
+        $strokesPar3 = ($last->totalStrokesPar(3) - $first->totalStrokesPar(3)) / $totalRounds;
+        $strokesPar4 = ($last->totalStrokesPar(4) - $first->totalStrokesPar(4)) / $totalRounds;
+        $strokesPar5 = ($last->totalStrokesPar(5) - $first->totalStrokesPar(5)) / $totalRounds;
 
-        $comparisonSubQuery = DB::table(DB::raw("({$userTotalsSubQuerySql}) as r1"))
-            ->join(DB::raw("({$userTotalsSubQuerySql}) as r2"), function($join) {
-                $join->on('r1.date', '<', 'r2.date');
-            })
-            ->mergeBindings($userTotalsSubQuery)
-            ->mergeBindings($userTotalsSubQuery)
-            ->select(
-                DB::raw('(r2.total_strokes - r1.total_strokes) as score_diff'),
-                DB::raw('(r2.total_putts - r1.total_putts) as putts_diff'),
-                DB::raw('(r2.total_par3 - r1.total_par3) as par3_diff'),
-                DB::raw('(r2.total_par4 - r1.total_par4) as par4_diff'),
-                DB::raw('(r2.total_par5 - r1.total_par5) as par5_diff')
-            )
-            ->groupBy('r2.id')
-            ->orderBy('r1.date', 'desc');
-
-        return DB::table(DB::raw("({$comparisonSubQuery->toSql()}) as t1"))
-            ->mergeBindings($comparisonSubQuery)
-            ->select(
-                DB::raw('sum(score_diff) / (count(*) + 1) as strokes'),
-                DB::raw('sum(putts_diff) / (count(*) + 1) as putts'),
-                DB::raw('sum(par3_diff) / (count(*) + 1) as strokes_par3'),
-                DB::raw('sum(par4_diff) / (count(*) + 1) as strokes_par4'),
-                DB::raw('sum(par5_diff) / (count(*) + 1) as strokes_par5')
-            )->first();
+        return compact('strokes', 'putts', 'strokesPar3', 'strokesPar4', 'strokesPar5');
     }
 
     public function getUserFollowing($userId)

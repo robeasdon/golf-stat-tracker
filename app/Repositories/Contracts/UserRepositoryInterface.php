@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Contracts;
 
+use Illuminate\Support\Collection;
+
 interface UserRepositoryInterface
 {
     /**
@@ -39,12 +41,12 @@ interface UserRepositoryInterface
     public function getUserStatsByPar($userId, $par);
 
     /**
-     * Get a user's trends over all rounds.
+     * Get a user's trends over a collection of rounds.
      *
-     * @param $userId
+     * @param Collection $rounds
      * @return mixed
      */
-    public function getUserTrends($userId);
+    public function getUserTrends(Collection $rounds);
 
     /**
      * Get all users a user is following.

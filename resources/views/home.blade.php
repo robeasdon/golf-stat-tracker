@@ -22,15 +22,15 @@
                     <tbody>
                     <tr>
                         <td>Strokes</td>
-                        <td>{{ sprintf("%+0.2f", $trends->strokes) }} {!! trends_arrow_html($trends->strokes) !!}</td>
+                        <td>{{ sprintf("%+0.2f", $trends['strokes']) }} {!! trends_arrow_html($trends['strokes']) !!}</td>
                         <td>Putts</td>
-                        <td>{{ sprintf("%+0.2f", $trends->putts) }} {!! trends_arrow_html($trends->putts) !!}</td>
+                        <td>{{ sprintf("%+0.2f", $trends['putts']) }} {!! trends_arrow_html($trends['putts']) !!}</td>
                         <td>Par 3</td>
-                        <td>{{ sprintf("%+0.2f", $trends->strokes_par3) }} {!! trends_arrow_html($trends->strokes_par3) !!}</td>
+                        <td>{{ sprintf("%+0.2f", $trends['strokesPar3']) }} {!! trends_arrow_html($trends['strokesPar3']) !!}</td>
                         <td>Par 4</td>
-                        <td>{{ sprintf("%+0.2f", $trends->strokes_par4) }} {!! trends_arrow_html($trends->strokes_par4) !!}</td>
+                        <td>{{ sprintf("%+0.2f", $trends['strokesPar4']) }} {!! trends_arrow_html($trends['strokesPar4']) !!}</td>
                         <td>Par 5</td>
-                        <td>{{ sprintf("%+0.2f", $trends->strokes_par5) }} {!! trends_arrow_html($trends->strokes_par5) !!}</td>
+                        <td>{{ sprintf("%+0.2f", $trends['strokesPar5']) }} {!! trends_arrow_html($trends['strokesPar5']) !!}</td>
                     </tr>
                     </tbody>
                 </table>
