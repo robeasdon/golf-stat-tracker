@@ -22,10 +22,10 @@ class UserSeeder extends Seeder
             for ($i = 0; $i < 10; $i++) {
 
                 // pick a random course to play on
-                $course = Course::orderByRaw("RAND()")->first();
+                $course = Course::orderByRaw("random()")->first();
 
                 // pick a random tee set on that course
-                $teeSet = TeeSet::orderByRaw("RAND()")->where('course_id', $course->id)->first();
+                $teeSet = TeeSet::orderByRaw("random()")->where('course_id', $course->id)->first();
 
                 $holes = $course->holes;
 
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
             for ($i = 0; $i < 10; $i++) {
 
                 // pick a random user, that is not the current user and is not already followed
-                $userToFollow = User::orderByRaw("RAND()")->whereNotIn('users.id', $followed)->first();
+                $userToFollow = User::orderByRaw("random()")->whereNotIn('users.id', $followed)->first();
 
                 $user->following()->attach($userToFollow);
 

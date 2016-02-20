@@ -80,7 +80,7 @@ class CourseRepository implements CourseRepositoryInterface
                 'courses.name as course_name',
                 DB::raw('sum(scores.strokes) as total_strokes')
             )
-            ->groupBy('rounds.id')
+            ->groupBy('rounds.id', 'courses.id')
             ->orderBy('total_strokes', 'asc')
             ->orderBy('rounds.date', 'desc')
             ->take(5)

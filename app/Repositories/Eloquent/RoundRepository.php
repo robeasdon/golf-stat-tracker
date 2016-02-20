@@ -74,7 +74,7 @@ class RoundRepository implements RoundRepositoryInterface
             )
             ->orderBy('total_strokes', 'asc')
             ->orderBy('rounds.date', 'desc')
-            ->groupBy('rounds.id')
+            ->groupBy('rounds.id', 'courses.id')
             ->take($count)
             ->get();
     }
@@ -107,7 +107,7 @@ class RoundRepository implements RoundRepositoryInterface
         }
 
         return $rounds->orderBy($sort, $direction)
-            ->groupBy('rounds.id')
+            ->groupBy('rounds.id', 'users.id', 'tee_types.id', 'courses.id')
             ->paginate(10);
     }
 
